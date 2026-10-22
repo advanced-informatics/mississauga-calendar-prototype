@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Collection schedule calendar</title>
+<link rel="stylesheet" href="calendar.css">
+</head>
+<body>
+  <div class="cal" id="cal">
+    <!-- Search view -->
+    <form class="search" id="search" role="search" autocomplete="off">
+      <label for="address" class="search__label">Your home address</label>
+      <div class="search__row">
+        <input id="address" class="search__input" type="text" placeholder="Please type your home address"
+               role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="suggestions">
+        <button type="submit" class="icon-btn icon-btn--solid" aria-label="Search">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5 21 21"/></svg>
+        </button>
+      </div>
+      <ul id="suggestions" class="suggestions" role="listbox" hidden></ul>
+      <p id="not-found" class="message" hidden>This address is not found. Please review the address you have entered.</p>
+    </form>
+
+    <!-- Schedule view -->
+    <section id="result" hidden>
+      <div class="selected">
+        <div>
+          <div class="selected__label">Selected address:</div>
+          <div class="selected__value" id="selected-address"></div>
+        </div>
+        <button type="button" class="icon-btn icon-btn--solid" id="change-address" aria-label="Change address">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20h4L19 9l-4-4L4 16z"/></svg>
+        </button>
+      </div>
+
+      <div id="upcoming"></div>
+
+      <div class="actions">
+        <button type="button" class="btn btn--solid" id="open-reminder">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 16V11a6 6 0 0 1 12 0v5l2 2H4zM10 20a2 2 0 0 0 4 0"/></svg>
+          Get reminder
+        </button>
+        <button type="button" class="btn btn--outline" id="open-calendar">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg>
+          Get calendar
+        </button>
+      </div>
+
+      <div class="month-nav" id="month-nav">
+        <button type="button" class="icon-btn icon-btn--plain" id="prev-month" aria-label="Previous month">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg>
+        </button>
+        <div class="month-picker">
+          <button type="button" class="month-picker__btn" id="month-btn" aria-haspopup="listbox" aria-expanded="false"></button>
+          <ul class="month-picker__list" id="month-list" role="listbox" hidden></ul>
+        </div>
+        <button type="button" class="icon-btn icon-btn--plain" id="next-month" aria-label="Next month">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
+        </button>
+      </div>
+
+      <div id="month-collections" aria-live="polite"></div>
+    </section>
+
+    <!-- Reminder view -->
+    <section id="reminder" hidden>
+      <div class="subhead">
+        <button type="button" class="icon-btn icon-btn--outline" id="reminder-back" aria-label="Back to schedule">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg>
+        </button>
+        <h2 class="subhead__title">Get reminder</h2>
+      </div>
+      <form id="reminder-form" novalidate>
+        <p class="hint" id="reminder-hint">Select the way of how you would like to be notified about your upcoming collections.</p>
+        <div id="channels"></div>
+        <button type="submit" class="btn btn--solid btn--block" id="sign-up" disabled>Sign me up</button>
+        <p class="small">By signing up to reminders you agree to our <a href="#privacy">Privacy Policy and User Agreement</a>.</p>
+      </form>
+      <div id="reminder-done" class="confirm" hidden tabindex="-1">
+        <p><strong>You're signed up.</strong></p>
+        <p id="reminder-summary"></p>
+        <p class="small">Prototype only: nothing has been sent or stored.</p>
+        <button type="button" class="btn btn--outline" id="reminder-finish">Back to schedule</button>
+      </div>
+    </section>
+
+    <!-- Calendar download view -->
+    <section id="calendar-panel" hidden>
+      <div class="subhead">
+        <button type="button" class="icon-btn icon-btn--outline" id="calendar-back" aria-label="Back to schedule">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg>
+        </button>
+        <h2 class="subhead__title">Getting a calendar</h2>
+      </div>
+      <p class="hint">Download your collection days for the next three months and add them to Outlook, Apple Calendar or Google Calendar.</p>
+      <a class="btn btn--solid btn--block" id="ics-link" href="#" download="collection-schedule.ics">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg>
+        Download calendar file (.ics)
+      </a>
+      <p class="small">In Google Calendar, use Settings, then Import, and choose the downloaded file.</p>
+    </section>
+  </div>
+
+  <script src="data.js"></script>
+  <script src="calendar.js"></script>
+</body>
+</html>

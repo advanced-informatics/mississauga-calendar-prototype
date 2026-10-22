@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Collection calendar prototype (stand-in host page)</title>
+<style>
+  /* Stand-in for a mississauga.ca content page, on the City's grid: five breakpoints (xs 320-576,
+     sm 577-768, md 769-992, lg 993-1200, xl above), container capped at 1200px, and the calendar
+     frame at full width or 75% of it (Carol's sheet, 5 Oct). Only the iframe and the resize script matter. */
+  :root {
+    --ink: #1d1d1d; --muted: #555; --line: #d9d9d9; --brand: #0b4f71; --bg: #ffffff; --band: #f4f6f8;
+    --u: 4px; --fs-h1: 32px; --fs-p: 16px; --fs-small: 14.4px;
+  }
+  @media (min-width: 577px) { :root { --u: 4.5px; --fs-h1: 36px; --fs-p: 18px; --fs-small: 16.2px; } }
+  @media (min-width: 993px) { :root { --u: 5px; --fs-h1: 40px; --fs-p: 20px; --fs-small: 18px; } }
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: Arial, Helvetica, sans-serif; color: var(--ink); background: var(--bg); font-size: var(--fs-p); line-height: 1.5; }
+
+  .proto-bar { background: #fff4d6; border-bottom: 1px solid #f0d58a; padding: 8px 16px; font-size: 14px; display: flex; flex-wrap: wrap; gap: 8px 16px; align-items: center; }
+  .proto-bar fieldset { border: 0; margin: 0; padding: 0; display: flex; gap: 12px; align-items: center; }
+  .proto-bar legend { float: left; margin-right: 8px; font-weight: 700; }
+  .proto-bar output { font-family: Consolas, monospace; }
+
+  .site-header { background: var(--brand); color: #fff; }
+  .site-header .inner { max-width: 1200px; margin: 0 auto; padding: 14px 16px; display: flex; align-items: center; gap: 12px; }
+  .site-header .logo { font-weight: 700; font-size: 1.15rem; }
+  .site-header nav { margin-left: auto; font-size: var(--fs-small); opacity: .9; }
+
+  /* The City's container: full width up to 1200px. */
+  .container { max-width: 1200px; margin: 0 auto; padding: calc(var(--u) * 6) 0; }
+  .layout { display: flex; flex-wrap: wrap; }
+  .page-head { width: 100%; padding: 0 16px; }
+  .side-nav { display: none; }
+  .content { width: 100%; }
+  /* 75% layout: the frame takes 9 of 12 columns; the other 3 hold the side menu from md up. */
+  .is-75 .content { width: 75%; }
+  @media (min-width: 769px) {
+    .is-75 .side-nav { display: block; width: 25%; padding: 0 16px; font-size: var(--fs-small); }
+    .is-75 .side-nav a { display: block; padding: 6px 0; color: var(--brand); text-decoration: none; }
+    .is-75 .side-nav a[aria-current] { font-weight: 700; }
+  }
+
+  h1 { margin: 0 0 calc(var(--u) * 2); font-size: var(--fs-h1); line-height: 1.2; }
+  .lede { margin: 0 0 calc(var(--u) * 6); color: var(--muted); max-width: 60ch; }
+  /* The embed: fills its column; height set by the script below. No scrollbar of its own. */
+  #calendar-frame { display: block; width: 100%; border: 0; min-height: 200px; }
+  .site-footer { background: var(--band); border-top: 1px solid var(--line); padding: 24px 16px; font-size: var(--fs-small); color: var(--muted); }
+</style>
+</head>
+<body>
+  <div class="proto-bar">
+    <span>Prototype by Advanced Informatics, not a City of Mississauga website. Fake data.</span>
+    <fieldset>
+      <legend>Frame</legend>
+      <label><input type="radio" name="layout" value="full" checked> Full width</label>
+      <label><input type="radio" name="layout" value="75"> 75%</label>
+    </fieldset>
+    <output id="readout" aria-live="polite"></output>
+  </div>
+  <header class="site-header">
+    <div class="inner">
+      <span class="logo">Stand-in for the City's page</span>
+      <nav aria-label="Site">Residents · Business · Council</nav>
+    </div>
+  </header>
+
+  <div class="container" id="container">
+    <div class="page-head">
+      <h1>Collection schedule</h1>
+      <p class="lede">Find out when your garbage, recycling and organics are collected. Enter your address to see your upcoming collections.</p>
+    </div>
+    <div class="layout">
+      <nav class="side-nav" aria-label="Waste and recycling">
+        <a href="#">Waste and recycling</a>
+        <a href="#" aria-current="page">Collection schedule</a>
+        <a href="#">Waste sorting</a>
+        <a href="#">Report a missed collection</a>
+      </nav>
+      <main class="content">
+        <!-- The embed the City would place on its page -->
+        <iframe id="calendar-frame" src="calendar/index.html" title="Collection schedule calendar" scrolling="no"></iframe>
+      </main>
+    </div>
+  </div>
+
+  <footer class="site-footer">Footer content</footer>
+
+  <!-- The snippet the City's developers would add: resize the iframe to the height its content reports. -->
+  <script>
+    (function () {
+      var frame = document.getElementById('calendar-frame');
+      window.addEventListener('message', function (event) {
+        if (event.source !== frame.contentWindow) return;
+        var data = event.data;
+        if (data && data.type === 'calendar-height' && typeof data.height === 'number') {
+          frame.style.height = Math.ceil(data.height) + 'px';
+        }
+      });
+    })();
+  </script>
+
+  <!-- Prototype only: the full width / 75% switch and the breakpoint readout. -->
+  <script>
+    (function () {
+      var container = document.getElementById('container'), frame = document.getElementById('calendar-frame');
+      var readout = document.getElementById('readout');
+      function breakpoint(w) { return w <= 576 ? 'xs' : w <= 768 ? 'sm' : w <= 992 ? 'md' : w <= 1200 ? 'lg' : 'xl'; }
+      function update() {
+        readout.textContent = 'viewport ' + window.innerWidth + 'px (' + breakpoint(window.innerWidth) + ') · frame ' + frame.offsetWidth + 'px';
+      }
+      function setLayout(v) {
+        container.classList.toggle('is-75', v === '75');
+        try { history.replaceState(null, '', '#' + v); } catch (e) {}
+        update();
+      }
+      document.querySelectorAll('input[name="layout"]').forEach(function (r) {
+        r.addEventListener('change', function () { setLayout(r.value); });
+      });
+      if (location.hash === '#75') { document.querySelector('input[value="75"]').checked = true; setLayout('75'); }
+      window.addEventListener('resize', update);
+      update();
+    })();
+  </script>
+</body>
+</html>
