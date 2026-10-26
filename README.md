@@ -13,4 +13,4 @@ Fake data only. No back end; nothing is sent or stored. Not a City of Mississaug
 
 Open `index.html` in a browser, from disk or from the GitHub Pages site. To embed the calendar in another page, point an iframe at `calendar/index.html` and add the resize script from `index.html`.
 
-Test addresses: type "sample", "harb", "lakeview" or "industrial" (no collections).
+Test addresses: type "300 city", "sample", "harb", "lakeview" or "industrial" (no collections).

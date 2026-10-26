@@ -30,24 +30,23 @@
           <div class="selected__label">Selected address:</div>
           <div class="selected__value" id="selected-address"></div>
         </div>
-        <button type="button" class="icon-btn icon-btn--solid" id="change-address" aria-label="Change address">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20h4L19 9l-4-4L4 16z"/></svg>
+        <button type="button" class="icon-btn icon-btn--solid" id="change-address" aria-label="Clear address and search again">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+        </button>
+      </div>
+
+      <div class="actions">
+        <button type="button" class="icon-btn icon-btn--solid" id="open-reminder" aria-label="Get reminder">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 16V11a6 6 0 0 1 12 0v5l2 2H4zM10 20a2 2 0 0 0 4 0"/></svg>
+        </button>
+        <button type="button" class="icon-btn icon-btn--outline-action" id="open-calendar" aria-label="Get calendar">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg>
         </button>
       </div>
 
       <div id="upcoming"></div>
 
-      <div class="actions">
-        <button type="button" class="btn btn--solid" id="open-reminder">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 16V11a6 6 0 0 1 12 0v5l2 2H4zM10 20a2 2 0 0 0 4 0"/></svg>
-          Get reminder
-        </button>
-        <button type="button" class="btn btn--outline" id="open-calendar">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg>
-          Get calendar
-        </button>
-      </div>
-
+      <h2 class="section-title" id="future-title">Future collections</h2>
       <div class="month-nav" id="month-nav">
         <button type="button" class="icon-btn icon-btn--plain" id="prev-month" aria-label="Previous month">
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg>
@@ -94,7 +93,7 @@
         </button>
         <h2 class="subhead__title">Getting a calendar</h2>
       </div>
-      <p class="hint">Download your collection days for the next three months and add them to Outlook, Apple Calendar or Google Calendar.</p>
+      <p class="hint">Download your collection days for the next twelve months and add them to Outlook, Apple Calendar or Google Calendar.</p>
       <a class="btn btn--solid btn--block" id="ics-link" href="#" download="collection-schedule.ics">
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg>
         Download calendar file (.ics)

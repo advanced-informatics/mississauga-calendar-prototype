@@ -1,4 +1,4 @@
-/* Calendar inside the iframe. Layout follows Daria's Version 2.0 mobile design (Figma 135:4837). */
+/* Calendar inside the iframe. Layout follows Daria's mobile design: Version 2.0 (Figma 135:4837) with the post-feedback updates (Figma 154:53). */
 :root {
   --ink: #1d1d1d;
   --muted: #5a5a5a;
@@ -84,8 +84,10 @@ a { color: var(--action); }
 .detail p { margin: 4px 0 2px 18px; font-size: var(--fs-small); color: var(--muted); }
 .detail a { margin-left: 18px; font-size: var(--fs-small); }
 
-/* Actions */
-.actions { display: flex; flex-wrap: wrap; gap: calc(var(--u) * 2); margin: calc(var(--u) * 4) 0 calc(var(--u) * 6); }
+/* Actions: icon buttons under the address, right-aligned (Carol, 23 Oct; Figma 154:53) */
+.actions { display: flex; justify-content: flex-end; gap: calc(var(--u) * 2); margin: 0 0 calc(var(--u) * 3); }
+.icon-btn--outline-action { border: 1px solid var(--action); background: #fff; }
+.section-title { font-size: var(--fs-p); font-weight: 700; margin: calc(var(--u) * 5) 0 calc(var(--u) * 2); }
 
 /* Month navigation */
 .month-nav { display: flex; align-items: center; justify-content: space-between; margin-bottom: calc(var(--u) * 3); }
@@ -97,10 +99,11 @@ a { color: var(--action); }
 .month-picker__list {
   position: absolute; z-index: 2; left: 0; right: 0; top: calc(100% + 4px); list-style: none; margin: 0; padding: 4px 0;
   background: #fff; border: 1px solid var(--line); border-radius: 4px; box-shadow: 0 4px 12px rgba(0,0,0,.12);
+  min-width: max-content; max-height: calc(var(--fs-p) * 18); overflow-y: auto;
 }
 .month-picker__list button {
   display: flex; width: 100%; justify-content: space-between; align-items: center; padding: 10px 14px;
-  font: inherit; font-size: var(--fs-p); background: none; border: 0; cursor: pointer; text-align: left;
+  font: inherit; font-size: var(--fs-p); background: none; border: 0; cursor: pointer; text-align: left; white-space: nowrap; gap: 16px;
 }
 .month-picker__list button:hover { background: var(--panel); }
 .radio { width: 16px; height: 16px; border-radius: 50%; border: 2px solid #8a959e; flex: none; }

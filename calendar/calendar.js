@@ -140,6 +140,7 @@
     var up = el('upcoming');
     up.innerHTML = '';
     up.appendChild(state.upcoming ? card(state.upcoming, true) : message('No upcoming collections for the selected address.'));
+    el('future-title').hidden = !state.upcoming;
     el('month-nav').hidden = !state.upcoming;
     el('month-collections').hidden = !state.upcoming;
     if (state.upcoming) renderMonth();
@@ -250,7 +251,6 @@
   // --- Reminder sign-up (prototype: nothing is sent or stored) ---
   var channels = [
     { key: 'email', label: 'By email',      field: 'Email address', type: 'email', placeholder: 'address@example.com' },
-    { key: 'phone', label: 'By phone call', field: 'Phone number',  type: 'tel',   placeholder: 'XXX-XXX-XXXX' },
     { key: 'sms',   label: 'By SMS',        field: 'Mobile number', type: 'tel',   placeholder: 'XXX-XXX-XXXX' }
   ];
   function timeOptions() {

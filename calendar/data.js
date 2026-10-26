@@ -20,8 +20,9 @@ window.CALENDAR_DATA = {
       link: '#organics'
     }
   },
-  monthsAhead: 2,
+  monthsAhead: 12,
   addresses: [
+    { id: 'a0', label: '300 City Centre Drive, Mississauga', weekday: 5, recyclingWeek: 1 },
     { id: 'a1', label: '120 Sample Street, Mississauga',   weekday: 5, recyclingWeek: 0 },
     { id: 'a2', label: '50 Harbour Road, Mississauga',     weekday: 3, recyclingWeek: 1 },
     { id: 'a3', label: '60 Harbour Road, Mississauga',     weekday: 3, recyclingWeek: 1 },
