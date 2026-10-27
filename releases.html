@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Release notes: collection calendar prototype</title>
+<style>
+  /* Release notes for the prototype, read from CHANGELOG.md so there is one source. Newest version first. */
+  :root { --ink: #1d1d1d; --muted: #555; --line: #d9d9d9; --brand: #0b4f71; --bg: #ffffff; --band: #f4f6f8; }
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: Arial, Helvetica, sans-serif; color: var(--ink); background: var(--bg); font-size: 18px; line-height: 1.55; }
+  .site-header { background: var(--brand); color: #fff; }
+  .site-header .inner { max-width: 760px; margin: 0 auto; padding: 14px 16px; }
+  main { max-width: 760px; margin: 0 auto; padding: 24px 16px 48px; }
+  h1 { font-size: 32px; margin: 0 0 8px; }
+  .intro { color: var(--muted); margin: 0 0 24px; }
+  .release { border-top: 1px solid var(--line); padding: 20px 0 8px; }
+  .release h2 { font-size: 22px; margin: 0 0 4px; }
+  .release .lead { color: var(--muted); margin: 0 0 8px; }
+  .release ul { margin: 0; padding-left: 22px; }
+  .release li { margin-bottom: 6px; }
+  a { color: var(--brand); }
+  :focus-visible { outline: 3px solid #1a7ac0; outline-offset: 2px; }
+</style>
+</head>
+<body>
+  <header class="site-header"><div class="inner">Collection calendar prototype</div></header>
+  <main>
+    <h1>Release notes</h1>
+    <p class="intro">What changed in each version of the prototype, newest first. <a href="index.html">Back to the prototype</a>.</p>
+    <div id="notes"><p>Loading. If nothing appears, <a href="CHANGELOG.md">open the release notes as text</a>.</p></div>
+  </main>
+  <script>
+    (function () {
+      function esc(t) { return t.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); }
+      function inline(t) { return esc(t).replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>').replace(/`(.+?)`/g, '<code>$1</code>'); }
+      fetch('CHANGELOG.md', { cache: 'no-store' }).then(function (r) { return r.text(); }).then(function (md) {
+        var out = [], open = null, inList = false;
+        md.split(/\r?\n/).forEach(function (line) {
+          if (/^## /.test(line)) {
+            if (inList) { out.push('</ul>'); inList = false; }
+            if (open) out.push('</section>');
+            out.push('<section class="release"><h2>' + inline(line.slice(3)) + '</h2>');
+            open = true;
+          } else if (!open) {
+            return; // skip the file's title and preamble
+          } else if (/^- /.test(line)) {
+            if (!inList) { out.push('<ul>'); inList = true; }
+            out.push('<li>' + inline(line.slice(2)) + '</li>');
+          } else if (line.trim()) {
+            if (inList) { out.push('</ul>'); inList = false; }
+            out.push('<p class="lead">' + inline(line) + '</p>');
+          }
+        });
+        if (inList) out.push('</ul>');
+        if (open) out.push('</section>');
+        document.getElementById('notes').innerHTML = out.join('');
+      }).catch(function () {});
+    })();
+  </script>
+</body>
+</html>

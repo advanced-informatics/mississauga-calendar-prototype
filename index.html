@@ -22,6 +22,7 @@
   .proto-bar fieldset { border: 0; margin: 0; padding: 0; display: flex; gap: 12px; align-items: center; }
   .proto-bar legend { float: left; margin-right: 8px; font-weight: 700; }
   .proto-bar output { font-family: Consolas, monospace; }
+  .proto-bar .proto-notes { margin-left: auto; color: #6b4e00; font-weight: 700; }
 
   .site-header { background: var(--brand); color: #fff; }
   .site-header .inner { max-width: 1200px; margin: 0 auto; padding: 14px 16px; display: flex; align-items: center; gap: 12px; }
@@ -58,6 +59,7 @@
       <label><input type="radio" name="layout" value="75"> 75%</label>
     </fieldset>
     <output id="readout" aria-live="polite"></output>
+    <a class="proto-notes" href="releases.html">v0.3.0 · Release notes</a>
   </div>
   <header class="site-header">
     <div class="inner">
@@ -85,7 +87,7 @@
     </div>
   </div>
 
-  <footer class="site-footer">Footer content · Prototype v0.3.0, 27 October 2026</footer>
+  <footer class="site-footer">Footer content · Prototype v0.3.0, 27 October 2026 · <a href="releases.html">Release notes</a></footer>
 
   <!-- The snippet the City's developers would add: resize the iframe to the height its content reports. -->
   <script>

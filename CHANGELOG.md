@@ -12,6 +12,7 @@ Daria's mobile layout update (Figma 154:53, 26 Oct) and her new tablet and deskt
 - Focus mode: fields show a clear blue ring when focused, by keyboard or click.
 - Sign-up confirmation with a tick icon.
 - Address suggestions include the postal code.
+- Release notes page, linked from the top bar and the footer.
 
 ## v0.2.0 (26 October 2026)
 

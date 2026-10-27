@@ -7,6 +7,7 @@ Fake data only. No back end; nothing is sent or stored. Not a City of Mississaug
 ## Files
 
 - `index.html`: a stand-in host page with a full-width / 75% frame switch and a breakpoint readout. The resize script at the bottom is the snippet a host page would embed.
+- `releases.html`: the release notes, read from `CHANGELOG.md` (newest first); linked from the prototype bar and the footer. When releasing, update `CHANGELOG.md` and the version in both links.
 - `calendar/`: the calendar itself (`index.html`, `calendar.css`, `calendar.js`, `data.js` with fake addresses).
 
 ## Running it
