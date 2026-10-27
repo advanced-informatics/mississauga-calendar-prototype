@@ -26,21 +26,20 @@
     <!-- Schedule view -->
     <section id="result" hidden>
       <div class="selected">
-        <div>
-          <div class="selected__label">Selected address:</div>
-          <div class="selected__value" id="selected-address"></div>
-        </div>
+        <p class="selected__text"><span class="selected__label">Selected address:</span> <span class="selected__value" id="selected-address"></span></p>
         <button type="button" class="icon-btn icon-btn--solid" id="change-address" aria-label="Clear address and search again">
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
         </button>
       </div>
 
       <div class="actions">
-        <button type="button" class="icon-btn icon-btn--solid" id="open-reminder" aria-label="Get reminder">
+        <button type="button" class="icon-btn icon-btn--solid action-btn" id="open-reminder" aria-label="Get reminder">
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 16V11a6 6 0 0 1 12 0v5l2 2H4zM10 20a2 2 0 0 0 4 0"/></svg>
+          <span class="action-btn__label" aria-hidden="true">Get reminder</span>
         </button>
-        <button type="button" class="icon-btn icon-btn--outline-action" id="open-calendar" aria-label="Get calendar">
+        <button type="button" class="icon-btn icon-btn--outline-action action-btn" id="open-calendar" aria-label="Get calendar">
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg>
+          <span class="action-btn__label" aria-hidden="true">Get calendar</span>
         </button>
       </div>
 
@@ -72,13 +71,17 @@
         <h2 class="subhead__title">Get reminder</h2>
       </div>
       <form id="reminder-form" novalidate>
+        <div class="error-summary" id="error-summary" role="alert" tabindex="-1" hidden>
+          <p class="error-summary__title">Please provide valid information:</p>
+          <ul id="error-list"></ul>
+        </div>
         <p class="hint" id="reminder-hint">Select the way of how you would like to be notified about your upcoming collections.</p>
         <div id="channels"></div>
         <button type="submit" class="btn btn--solid btn--block" id="sign-up" disabled>Sign me up</button>
         <p class="small">By signing up to reminders you agree to our <a href="#privacy">Privacy Policy and User Agreement</a>.</p>
       </form>
       <div id="reminder-done" class="confirm" hidden tabindex="-1">
-        <p><strong>You're signed up.</strong></p>
+        <p class="confirm__title"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M8 12.5l2.5 2.5L16 9.5"/></svg><strong>You're signed up.</strong></p>
         <p id="reminder-summary"></p>
         <p class="small">Prototype only: nothing has been sent or stored.</p>
         <button type="button" class="btn btn--outline" id="reminder-finish">Back to schedule</button>

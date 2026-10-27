@@ -2,6 +2,17 @@
 
 Versions of the collection calendar prototype. Front end only, with fake data; designs by Daria (Figma file "Mississauga Calendar Design").
 
+## v0.3.0 (27 October 2026)
+
+Daria's mobile layout update (Figma 154:53, 26 Oct) and her new tablet and desktop layouts (Figma 176:2079).
+
+- Tablet and desktop: "Selected address" and the address on one line, the X right beside them.
+- Desktop (frame 993px and wider): the reminder and calendar buttons show their labels, "Get reminder" and "Get calendar".
+- Reminder form errors: a summary at the top ("Please provide valid information") linking to each field to fix, an error under each field, and invalid fields outlined in red.
+- Focus mode: fields show a clear blue ring when focused, by keyboard or click.
+- Sign-up confirmation with a tick icon.
+- Address suggestions include the postal code.
+
 ## v0.2.0 (26 October 2026)
 
 Carol's feedback of 23 October, from Daria's post-feedback design (Figma 154:53).

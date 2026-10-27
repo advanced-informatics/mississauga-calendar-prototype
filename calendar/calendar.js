@@ -1,5 +1,5 @@
-// Calendar prototype, pass B: search, upcoming collection, month switching, expandable cards,
-// empty states, reminder sign-up (nothing is sent) and an .ics download.
+// Calendar prototype: search, upcoming collection, month switching, expandable cards, empty states,
+// reminder sign-up with validation (nothing is sent) and an .ics download.
 // Plain script (no modules) so it runs from disk.
 (function () {
   var data = window.CALENDAR_DATA;
@@ -222,7 +222,7 @@
     notFound.hidden = true;
     found.forEach(function (a) {
       var li = make('li');
-      var b = make('button', '', a.label);
+      var b = make('button', '', a.label + (a.postal ? ' ON ' + a.postal : ''));
       b.type = 'button';
       b.setAttribute('role', 'option');
       b.addEventListener('click', function () { showAddress(a); });
@@ -310,6 +310,7 @@
       box.appendChild(wrap);
     });
     el('sign-up').disabled = true;
+    el('error-summary').hidden = true;
     el('reminder-form').hidden = false;
     el('reminder-done').hidden = true;
   }
@@ -319,9 +320,22 @@
     if (c.type === 'tel' && value.replace(/\D/g, '').length < 10) return 'Enter a 10-digit number, like 905-555-0100.';
     return '';
   }
+  function showSummary(bad) {
+    var box = el('error-summary'), ul = el('error-list');
+    ul.innerHTML = '';
+    bad.forEach(function (c) {
+      var li = make('li'), a = make('a', '', c.field);
+      a.href = '#in-' + c.key;
+      a.addEventListener('click', function (e) { e.preventDefault(); el('in-' + c.key).focus(); });
+      li.appendChild(a);
+      ul.appendChild(li);
+    });
+    box.hidden = !bad.length;
+    if (bad.length) box.focus();
+  }
   el('reminder-form').addEventListener('submit', function (e) {
     e.preventDefault();
-    var chosen = [], firstBad = null;
+    var chosen = [], bad = [];
     channels.forEach(function (c) {
       if (!el('ch-' + c.key).checked) return;
       var inp = el('in-' + c.key), err = el('err-' + c.key);
@@ -329,11 +343,12 @@
       err.textContent = problem;
       err.hidden = !problem;
       inp.setAttribute('aria-invalid', String(!!problem));
-      if (problem && !firstBad) firstBad = inp;
+      if (problem) bad.push(c);
       chosen.push(c.label.replace('By ', '') + ' (' + el('when-' + c.key).value.toLowerCase() + ', ' + el('time-' + c.key).value + ')');
     });
+    showSummary(bad);
     reportHeight();
-    if (firstBad) { firstBad.focus(); return; }
+    if (bad.length) return;
     el('reminder-summary').textContent = 'Reminders for ' + state.address.label + ': ' + chosen.join('; ') + '.';
     el('reminder-form').hidden = true;
     el('reminder-done').hidden = false;

@@ -1,4 +1,4 @@
-/* Calendar inside the iframe. Layout follows Daria's mobile design: Version 2.0 (Figma 135:4837) with the post-feedback updates (Figma 154:53). */
+/* Calendar inside the iframe. Follows Daria's designs: mobile layout (Figma 154:53, 26 Oct) and tablet and desktop layouts (Figma 176:2079). */
 :root {
   --ink: #1d1d1d;
   --muted: #5a5a5a;
@@ -7,7 +7,8 @@
   --panel: #f5f7f9;
   --action: #0b5a8f;
   --action-ink: #ffffff;
-  --focus: #ffbf47;
+  --focus: #1a7ac0;
+  --error: #b00020;
   /* City type scale and spacing unit (design brief, Carol's sheets of 23 Sep and 5 Oct).
      Phone below 577px, tablet 577 to 992px, desktop from 993px, measured on the frame's width. */
   --u: 4px;
@@ -22,6 +23,8 @@ body { font-family: Arial, Helvetica, sans-serif; color: var(--ink); font-size: 
 [hidden] { display: none !important; }
 
 :focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
+/* Focus mode (Figma 154:53): fields show a clear ring when reached by keyboard or click. */
+.search__input:focus, .field-input:focus, .field-select:focus { outline: 3px solid var(--focus); outline-offset: 0; border-color: var(--focus); }
 a { color: var(--action); }
 
 /* Search */
@@ -61,8 +64,15 @@ a { color: var(--action); }
 
 /* Selected address */
 .selected { display: flex; align-items: flex-start; justify-content: space-between; gap: calc(var(--u) * 3); margin-bottom: calc(var(--u) * 4); }
-.selected__label { font-size: var(--fs-small); color: var(--muted); }
+.selected__text { margin: 0; }
+.selected__label { display: block; font-size: var(--fs-small); color: var(--muted); }
 .selected__value { font-weight: 700; }
+/* Tablet and desktop (Figma 176:2079): label and address on one line, the X right beside them. */
+@media (min-width: 577px) {
+  .selected { justify-content: flex-start; align-items: center; }
+  .selected__label { display: inline; font-size: var(--fs-p); color: var(--ink); font-weight: 700; }
+  .selected__value { font-weight: 400; }
+}
 
 /* Collection cards */
 .card { border: 1px solid var(--line); border-radius: 6px; background: var(--card); margin-bottom: calc(var(--u) * 2); }
@@ -87,6 +97,12 @@ a { color: var(--action); }
 /* Actions: icon buttons under the address, right-aligned (Carol, 23 Oct; Figma 154:53) */
 .actions { display: flex; justify-content: flex-end; gap: calc(var(--u) * 2); margin: 0 0 calc(var(--u) * 3); }
 .icon-btn--outline-action { border: 1px solid var(--action); background: #fff; }
+.action-btn__label { display: none; }
+/* Desktop: the buttons carry their labels (Figma 176:2079, widest frames). */
+@media (min-width: 993px) {
+  .action-btn { width: auto; padding: 0 14px; gap: 8px; font: inherit; font-size: var(--fs-small); }
+  .action-btn__label { display: inline; }
+}
 .section-title { font-size: var(--fs-p); font-weight: 700; margin: calc(var(--u) * 5) 0 calc(var(--u) * 2); }
 
 /* Month navigation */
@@ -123,6 +139,13 @@ a { color: var(--action); }
 .field-row { display: flex; gap: 8px; }
 .field-row .field-select:first-child { flex: 2; }
 .field-row .field-select:last-child { flex: 1; }
-.error { color: #b00020; font-size: var(--fs-small); margin: 4px 0 0; }
+.error { color: var(--error); font-size: var(--fs-small); margin: 4px 0 0; }
+.field-input[aria-invalid="true"] { border: 2px solid var(--error); }
+.error-summary { border: 2px solid var(--error); background: #fdecee; border-radius: 6px; padding: calc(var(--u) * 3) calc(var(--u) * 4); margin-bottom: calc(var(--u) * 4); }
+.error-summary__title { margin: 0 0 4px; font-weight: 700; color: var(--error); }
+.error-summary ul { margin: 0; padding-left: 20px; }
+.error-summary a { color: var(--error); font-weight: 700; }
 .confirm { border: 1px solid var(--line); border-radius: 6px; padding: calc(var(--u) * 3) calc(var(--u) * 4); background: var(--panel); }
 .confirm p { margin: 0 0 8px; }
+.confirm__title { display: flex; align-items: center; gap: 8px; }
+.confirm__title svg { width: 24px; height: 24px; fill: none; stroke: #2e8540; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; flex: none; }
