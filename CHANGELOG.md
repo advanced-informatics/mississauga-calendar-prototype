@@ -2,6 +2,10 @@
 
 Versions of the collection calendar prototype. Front end only, with fake data; designs by Daria (Figma file "Mississauga Calendar Design").
 
+## v0.3.1 (27 October 2026)
+
+- Test addresses use real Mississauga street names (Queen Street South, Lakeshore Road East, Mississauga Road, Airport Road) with made-up house numbers and postal codes. Collection days and waste descriptions are still placeholders until we have the City's wording.
+
 ## v0.3.0 (27 October 2026)
 
 Daria's mobile layout update (Figma 154:53, 26 Oct) and her new tablet and desktop layouts (Figma 176:2079).
