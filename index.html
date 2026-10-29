@@ -35,8 +35,8 @@
   .page-head { width: 100%; padding: 0 16px; }
   .side-nav { display: none; }
   .content { width: 100%; }
-  /* 75% layout: from md up (769px) the frame takes 9 of 12 columns and the other 3 hold the side menu.
-     Below that there is no side menu, so the frame is full width (Josh, 29 Oct). */
+  /* 75% layout: from md up (769px) the frame takes 9 of 12 columns and the other 3 hold the side menu,
+     on the right as on the City's site (Carol, 29 Oct). Below that there is no side menu, so the frame is full width. */
   @media (min-width: 769px) {
     .is-75 .content { width: 75%; }
     .is-75 .side-nav { display: block; width: 25%; padding: 0 16px; font-size: var(--fs-small); }
@@ -60,7 +60,7 @@
       <label><input type="radio" name="layout" value="75"> 75%</label>
     </fieldset>
     <output id="readout" aria-live="polite"></output>
-    <a class="proto-notes" href="releases.html">v0.4.1 · Release notes</a>
+    <a class="proto-notes" href="releases.html">v0.4.2 · Release notes</a>
   </div>
   <header class="site-header">
     <div class="inner">
@@ -75,20 +75,20 @@
       <p class="lede">Find out when your garbage, recycling and organics are collected. Enter your address to see your upcoming collections.</p>
     </div>
     <div class="layout">
+      <main class="content">
+        <!-- The embed the City would place on its page -->
+        <iframe id="calendar-frame" src="calendar/index.html" title="Collection schedule calendar" scrolling="no"></iframe>
+      </main>
       <nav class="side-nav" aria-label="Waste and recycling">
         <a href="#">Waste and recycling</a>
         <a href="#" aria-current="page">Collection schedule</a>
         <a href="#">Waste sorting</a>
         <a href="#">Report a missed collection</a>
       </nav>
-      <main class="content">
-        <!-- The embed the City would place on its page -->
-        <iframe id="calendar-frame" src="calendar/index.html" title="Collection schedule calendar" scrolling="no"></iframe>
-      </main>
     </div>
   </div>
 
-  <footer class="site-footer">Footer content · Prototype v0.4.1, 29 October 2026 · <a href="releases.html">Release notes</a></footer>
+  <footer class="site-footer">Footer content · Prototype v0.4.2, 29 October 2026 · <a href="releases.html">Release notes</a></footer>
 
   <!-- The snippet the City's developers would add: resize the iframe to the height its content reports. -->
   <script>

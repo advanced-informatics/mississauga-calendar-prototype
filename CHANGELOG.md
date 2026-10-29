@@ -2,6 +2,10 @@
 
 Versions of the collection calendar prototype. Front end only, with fake data; designs by Daria (Figma file "Mississauga Calendar Design").
 
+## v0.4.2 (29 October 2026)
+
+- Demo page: in the 75% layout the side menu is on the right, as on the City's site (Carol, 29 Oct). The calendar comes first in the page.
+
 ## v0.4.1 (29 October 2026)
 
 - Demo page: the 75% layout applies from 769px up, where the side menu appears. Below 769px the frame is full width. The host page sets the frame's width; the calendar fills whatever it is given.
