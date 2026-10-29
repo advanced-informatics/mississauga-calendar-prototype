@@ -35,9 +35,10 @@
   .page-head { width: 100%; padding: 0 16px; }
   .side-nav { display: none; }
   .content { width: 100%; }
-  /* 75% layout: the frame takes 9 of 12 columns; the other 3 hold the side menu from md up. */
-  .is-75 .content { width: 75%; }
+  /* 75% layout: from md up (769px) the frame takes 9 of 12 columns and the other 3 hold the side menu.
+     Below that there is no side menu, so the frame is full width (Josh, 29 Oct). */
   @media (min-width: 769px) {
+    .is-75 .content { width: 75%; }
     .is-75 .side-nav { display: block; width: 25%; padding: 0 16px; font-size: var(--fs-small); }
     .is-75 .side-nav a { display: block; padding: 6px 0; color: var(--brand); text-decoration: none; }
     .is-75 .side-nav a[aria-current] { font-weight: 700; }
@@ -59,7 +60,7 @@
       <label><input type="radio" name="layout" value="75"> 75%</label>
     </fieldset>
     <output id="readout" aria-live="polite"></output>
-    <a class="proto-notes" href="releases.html">v0.4.0 · Release notes</a>
+    <a class="proto-notes" href="releases.html">v0.4.1 · Release notes</a>
   </div>
   <header class="site-header">
     <div class="inner">
@@ -87,7 +88,7 @@
     </div>
   </div>
 
-  <footer class="site-footer">Footer content · Prototype v0.4.0, 29 October 2026 · <a href="releases.html">Release notes</a></footer>
+  <footer class="site-footer">Footer content · Prototype v0.4.1, 29 October 2026 · <a href="releases.html">Release notes</a></footer>
 
   <!-- The snippet the City's developers would add: resize the iframe to the height its content reports. -->
   <script>

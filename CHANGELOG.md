@@ -2,6 +2,10 @@
 
 Versions of the collection calendar prototype. Front end only, with fake data; designs by Daria (Figma file "Mississauga Calendar Design").
 
+## v0.4.1 (29 October 2026)
+
+- Demo page: the 75% layout applies from 769px up, where the side menu appears. Below 769px the frame is full width. The host page sets the frame's width; the calendar fills whatever it is given.
+
 ## v0.4.0 (29 October 2026)
 
 Daria's desktop layout (Figma 204:2412, 27 to 28 Oct).
