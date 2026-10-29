@@ -45,7 +45,17 @@
 
       <div id="upcoming"></div>
 
-      <h2 class="section-title" id="future-title">Future collections</h2>
+      <div class="future-head" id="future-head">
+        <h2 class="section-title" id="future-title">Future collections</h2>
+        <div class="view-toggle" role="group" aria-label="View">
+          <button type="button" class="view-btn" id="view-list" aria-pressed="true" aria-label="List view">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 6h12M8 12h12M8 18h12M4 6h.01M4 12h.01M4 18h.01"/></svg>
+          </button>
+          <button type="button" class="view-btn" id="view-calendar" aria-pressed="false" aria-label="Calendar view">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="5" width="16" height="15" rx="2"/><path d="M4 10h16M9 3v4M15 3v4"/></svg>
+          </button>
+        </div>
+      </div>
       <div class="month-nav" id="month-nav">
         <button type="button" class="icon-btn icon-btn--plain" id="prev-month" aria-label="Previous month">
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg>

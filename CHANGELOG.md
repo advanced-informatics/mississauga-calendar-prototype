@@ -2,6 +2,14 @@
 
 Versions of the collection calendar prototype. Front end only, with fake data; designs by Daria (Figma file "Mississauga Calendar Design").
 
+## v0.4.0 (29 October 2026)
+
+Daria's desktop layout (Figma 204:2412, 27 to 28 Oct).
+
+- Future collections has a list and calendar toggle beside its heading.
+- Calendar view: a month grid, Monday first, with each collection day's waste types; days from the next and previous month are greyed. On phones the days show coloured dots only.
+- Selecting a waste type in the grid opens a short description with "Find out more"; Escape or the X closes it.
+
 ## v0.3.1 (27 October 2026)
 
 - Test addresses use real Mississauga street names (Queen Street South, Lakeshore Road East, Mississauga Road, Airport Road) with made-up house numbers and postal codes. Collection days and waste descriptions are still placeholders until we have the City's wording.

@@ -6,7 +6,7 @@
   var el = function (id) { return document.getElementById(id); };
   var views = { search: el('search'), result: el('result'), reminder: el('reminder'), calendar: el('calendar-panel') };
   var input = el('address'), list = el('suggestions'), notFound = el('not-found');
-  var state = { address: null, months: [], monthIndex: 0, upcoming: null };
+  var state = { address: null, months: [], monthIndex: 0, upcoming: null, view: 'list' };
 
   // --- Tell the host page our height, so it can size the iframe (no inner scrollbar). ---
   function reportHeight() {
@@ -14,6 +14,8 @@
     var bottom = cal.offsetTop + cal.offsetHeight;
     var menu = el('month-list');
     if (!menu.hidden) bottom = Math.max(bottom, menu.getBoundingClientRect().bottom + window.scrollY + 8);
+    var pop = document.querySelector('.popover');
+    if (pop) bottom = Math.max(bottom, pop.getBoundingClientRect().bottom + window.scrollY + 8);
     window.parent.postMessage({ type: 'calendar-height', height: bottom }, '*');
   }
   if ('ResizeObserver' in window) new ResizeObserver(reportHeight).observe(el('cal'));
@@ -140,7 +142,7 @@
     var up = el('upcoming');
     up.innerHTML = '';
     up.appendChild(state.upcoming ? card(state.upcoming, true) : message('No upcoming collections for the selected address.'));
-    el('future-title').hidden = !state.upcoming;
+    el('future-head').hidden = !state.upcoming;
     el('month-nav').hidden = !state.upcoming;
     el('month-collections').hidden = !state.upcoming;
     if (state.upcoming) renderMonth();
@@ -162,10 +164,114 @@
 
     var box = el('month-collections');
     box.innerHTML = '';
-    if (items.length) items.forEach(function (c) { box.appendChild(card(c, false)); });
+    if (state.view === 'calendar') box.appendChild(monthGrid(m));
+    else if (items.length) items.forEach(function (c) { box.appendChild(card(c, false)); });
     else box.appendChild(message('No upcoming collections for the selected month.'));
     reportHeight();
   }
+
+  // --- Calendar view: month grid, Monday first, with the next month's days greyed (Figma 204:2412) ---
+  var dayNames = ['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su'];
+  var longDayFmt = new Intl.DateTimeFormat('en-CA', { weekday: 'long', month: 'long', day: 'numeric' });
+  function monthGrid(m) {
+    var today = dayStart(new Date());
+    var start = new Date(m.getFullYear(), m.getMonth(), 1);
+    start.setDate(start.getDate() - ((start.getDay() + 6) % 7));
+    var end = new Date(m.getFullYear(), m.getMonth() + 1, 0);
+    end.setDate(end.getDate() + (6 - (end.getDay() + 6) % 7));
+    var byDay = {};
+    collectionsFor(state.address, start, end).forEach(function (c) { byDay[c.date.toDateString()] = c.types; });
+
+    var grid = make('div', 'grid');
+    grid.setAttribute('role', 'grid');
+    grid.setAttribute('aria-label', monthFmt.format(m));
+    dayNames.forEach(function (n) { grid.appendChild(make('div', 'grid__head', n)); });
+    for (var d = new Date(start); d <= end; d.setDate(d.getDate() + 1)) {
+      var cell = make('div', 'grid__cell');
+      if (d.getMonth() !== m.getMonth()) cell.classList.add('is-other');
+      if (d.getTime() === today.getTime()) cell.classList.add('is-today');
+      var num = make('span', 'grid__num', String(d.getDate()));
+      cell.appendChild(num);
+      var types = byDay[d.toDateString()] || [];
+      if (types.length) {
+        var ul = make('ul', 'grid__types');
+        var dayLabel = longDayFmt.format(d);
+        types.forEach(function (key) {
+          var li = make('li');
+          var b = make('button', 'grid__type');
+          b.type = 'button';
+          b.setAttribute('aria-label', data.wasteTypes[key].label + ', ' + dayLabel);
+          b.appendChild(dot(key));
+          b.appendChild(make('span', 'grid__label', data.wasteTypes[key].label));
+          b.addEventListener('click', function (e) { e.stopPropagation(); openPopover(b, key); });
+          li.appendChild(b);
+          ul.appendChild(li);
+        });
+        cell.appendChild(ul);
+      }
+      grid.appendChild(cell);
+    }
+    return grid;
+  }
+
+  // --- Waste-type popover in the calendar view ---
+  var popover = null, popoverFrom = null;
+  function closePopover() {
+    if (!popover) return;
+    popover.remove();
+    popover = null;
+    if (popoverFrom) popoverFrom.focus();
+    popoverFrom = null;
+    reportHeight();
+  }
+  function openPopover(from, key) {
+    closePopover();
+    var t = data.wasteTypes[key];
+    popover = make('div', 'popover');
+    popover.setAttribute('role', 'dialog');
+    popover.setAttribute('aria-label', t.label);
+    var head = make('div', 'popover__head');
+    var name = make('div', 'detail__name');
+    name.appendChild(dot(key));
+    name.appendChild(document.createTextNode(t.label));
+    head.appendChild(name);
+    var x = make('button', 'popover__close');
+    x.type = 'button';
+    x.setAttribute('aria-label', 'Close');
+    x.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>';
+    x.addEventListener('click', closePopover);
+    head.appendChild(x);
+    popover.appendChild(head);
+    popover.appendChild(make('p', '', t.description));
+    var a = make('a', '', 'Find out more');
+    a.href = t.link;
+    a.setAttribute('aria-label', 'Find out more about ' + t.label.toLowerCase());
+    popover.appendChild(a);
+
+    var box = el('month-collections');
+    box.appendChild(popover);
+    var b = from.getBoundingClientRect(), r = box.getBoundingClientRect();
+    var left = Math.min(b.left - r.left, r.width - popover.offsetWidth);
+    popover.style.left = Math.max(0, left) + 'px';
+    popover.style.top = (b.bottom - r.top + 4) + 'px';
+    popoverFrom = from;
+    x.focus();
+    reportHeight();
+  }
+  document.addEventListener('click', function (e) {
+    if (popover && !e.target.closest('.popover')) closePopover();
+  });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closePopover(); });
+
+  function setView(v) {
+    state.view = v;
+    el('view-list').setAttribute('aria-pressed', String(v === 'list'));
+    el('view-calendar').setAttribute('aria-pressed', String(v === 'calendar'));
+    closePopover();
+    renderMonth();
+  }
+  el('view-list').addEventListener('click', function () { setView('list'); });
+  el('view-calendar').addEventListener('click', function () { setView('calendar'); });
   function setMonth(i) {
     state.monthIndex = Math.max(0, Math.min(state.months.length - 1, i));
     closeMonthList();
