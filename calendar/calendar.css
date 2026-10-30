@@ -62,17 +62,22 @@ a { color: var(--action); }
 .btn--outline { background: #fff; color: var(--action); border: 1px solid var(--action); }
 .btn--block { width: 100%; margin: 16px 0 8px; }
 
-/* Selected address */
-.selected { display: flex; align-items: flex-start; justify-content: space-between; gap: calc(var(--u) * 3); margin-bottom: calc(var(--u) * 4); }
-.selected__text { margin: 0; }
-.selected__label { display: block; font-size: var(--fs-small); color: var(--muted); }
-.selected__value { font-weight: 700; }
-/* Tablet and desktop (Figma 176:2079): label and address on one line, the X right beside them. */
-@media (min-width: 577px) {
-  .selected { justify-content: flex-start; align-items: center; }
-  .selected__label { display: inline; font-size: var(--fs-p); color: var(--ink); font-weight: 700; }
-  .selected__value { font-weight: 400; }
+/* Selected address: label above a field like the search field, with an X to clear it (Carol, 29 Oct; Figma 154:53, 204:2412) */
+.selected { margin-bottom: calc(var(--u) * 4); }
+.selected__label { margin: 0 0 6px; font-size: var(--fs-p); font-weight: 500; }
+.selected__field {
+  flex: 1; min-width: 0; display: flex; align-items: center; min-height: 44px; padding: 0 12px;
+  border: 1px solid #8a959e; border-right: 0; border-radius: 4px 0 0 4px; background: #fff;
 }
+@media (min-width: 577px) { .selected__label { font-weight: 700; } }
+
+/* No City collection at this address: status line, the reason, and a link (Figma 154:53, frame 208:3129) */
+.status { display: flex; align-items: center; gap: calc(var(--u) * 4); margin: 0 0 calc(var(--u) * 6); font-weight: 500; }
+.status svg { width: 32px; height: 32px; flex: none; fill: none; stroke: var(--action); stroke-width: 2; stroke-linecap: round; }
+.no-service__text { margin: 0 0 calc(var(--u) * 3); }
+.more-link { display: inline-flex; align-items: center; gap: 8px; font-weight: 700; text-decoration: none; }
+.more-link svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.more-link:hover { text-decoration: underline; }
 
 /* Collection cards */
 .card { border: 1px solid var(--line); border-radius: 6px; background: var(--card); margin-bottom: calc(var(--u) * 2); }
@@ -81,7 +86,6 @@ a { color: var(--action); }
   display: flex; width: 100%; align-items: flex-start; justify-content: space-between; gap: 12px;
   padding: calc(var(--u) * 3) calc(var(--u) * 4); background: none; border: 0; font: inherit; color: inherit; text-align: left; cursor: pointer;
 }
-.card__eyebrow { font-size: var(--fs-xs); color: var(--muted); }
 .card__date { font-weight: 700; line-height: 1.2; margin: 2px 0 calc(var(--u) * 2); }
 .card__chevron { width: 20px; height: 20px; flex: none; margin-top: 2px; fill: none; stroke: var(--muted); stroke-width: 2; transition: transform .15s; }
 .card__toggle[aria-expanded="true"] .card__chevron { transform: rotate(180deg); }
@@ -104,6 +108,7 @@ a { color: var(--action); }
   .action-btn__label { display: inline; }
 }
 .section-title { font-size: var(--fs-p); font-weight: 700; margin: calc(var(--u) * 5) 0 calc(var(--u) * 2); }
+.section-title--first { margin-top: 0; }
 
 /* Month navigation */
 .month-nav { display: flex; align-items: center; justify-content: space-between; margin-bottom: calc(var(--u) * 3); }
@@ -183,3 +188,17 @@ a { color: var(--action); }
 .popover__close svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 2; }
 .popover p { margin: 6px 0; font-size: var(--fs-small); color: var(--muted); }
 .popover a { font-size: var(--fs-small); }
+
+/* Get calendar: one button per application, a divider, then print (Figma 154:53, frame 208:3372) */
+.app-list .btn--block { margin: 0 0 calc(var(--u) * 4); }
+/* Wider frames: Daria drew this view for phones only, so it keeps a phone-width column. */
+@media (min-width: 577px) { .app-list { max-width: 375px; } }
+.divider { border: 0; border-top: 1px solid #c2c2c2; margin: 0 0 calc(var(--u) * 4); }
+.print-sheet { display: none; }
+@media print {
+  .cal { display: none; }
+  .print-sheet { display: block; font-size: 12pt; }
+  .print-sheet h1 { font-size: 16pt; margin: 0 0 4pt; }
+  .print-sheet h2 { font-size: 13pt; margin: 12pt 0 4pt; break-after: avoid; }
+  .print-sheet ul { margin: 0; padding-left: 16pt; }
+}

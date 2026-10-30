@@ -25,11 +25,15 @@
 
     <!-- Schedule view -->
     <section id="result" hidden>
+      <!-- Label above a field that looks like the search field, with an X to clear it (Carol, 29 Oct; Figma 154:53) -->
       <div class="selected">
-        <p class="selected__text"><span class="selected__label">Selected address:</span> <span class="selected__value" id="selected-address"></span></p>
-        <button type="button" class="icon-btn icon-btn--solid" id="change-address" aria-label="Clear address and search again">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
-        </button>
+        <p class="selected__label" id="selected-label">Selected address:</p>
+        <div class="search__row">
+          <output class="selected__field" id="selected-address" aria-labelledby="selected-label"></output>
+          <button type="button" class="icon-btn icon-btn--solid" id="change-address" aria-label="Clear address and search again">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+          </button>
+        </div>
       </div>
 
       <div class="actions">
@@ -98,22 +102,40 @@
       </div>
     </section>
 
-    <!-- Calendar download view -->
+    <!-- Calendar download view: a choice of application, plus print (Figma 154:53, frame 208:3372) -->
     <section id="calendar-panel" hidden>
       <div class="subhead">
         <button type="button" class="icon-btn icon-btn--outline" id="calendar-back" aria-label="Back to schedule">
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg>
         </button>
-        <h2 class="subhead__title">Getting a calendar</h2>
+        <h2 class="subhead__title">Get calendar</h2>
       </div>
-      <p class="hint">Download your collection days for the next twelve months and add them to Outlook, Apple Calendar or Google Calendar.</p>
-      <a class="btn btn--solid btn--block" id="ics-link" href="#" download="collection-schedule.ics">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg>
-        Download calendar file (.ics)
-      </a>
-      <p class="small">In Google Calendar, use Settings, then Import, and choose the downloaded file.</p>
+      <p class="hint">Please select your preferred application to use the collection calendar:</p>
+      <div class="app-list">
+        <a class="btn btn--solid btn--block ics-link" href="#" download="collection-schedule.ics" data-app="Google Calendar">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="5" width="16" height="15" rx="2"/><path d="M4 10h16M9 3v4M15 3v4"/></svg>
+          Google Calendar
+        </a>
+        <a class="btn btn--solid btn--block ics-link" href="#" download="collection-schedule.ics" data-app="iCal">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="5" width="16" height="15" rx="2"/><path d="M4 10h16M9 3v4M15 3v4"/></svg>
+          iCal
+        </a>
+        <a class="btn btn--solid btn--block ics-link" href="#" download="collection-schedule.ics" data-app="Microsoft Outlook">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="5" width="16" height="15" rx="2"/><path d="M4 10h16M9 3v4M15 3v4"/></svg>
+          Microsoft Outlook
+        </a>
+        <hr class="divider">
+        <button type="button" class="btn btn--outline btn--block" id="print-calendar">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 9V4h10v5M7 17H5a1 1 0 0 1-1-1v-6a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v6a1 1 0 0 1-1 1h-2M7 14h10v6H7z"/></svg>
+          Print calendar
+        </button>
+      </div>
+      <p class="small">Prototype: each application option downloads the same calendar file. The live version would use each application's own way of adding a calendar.</p>
     </section>
   </div>
+
+  <!-- Filled in when "Print calendar" is chosen; only this shows on paper. -->
+  <div id="print-sheet" class="print-sheet" aria-hidden="true"></div>
 
   <script src="data.js"></script>
   <script src="calendar.js"></script>

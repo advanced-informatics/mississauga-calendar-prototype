@@ -2,6 +2,17 @@
 
 Versions of the collection calendar prototype. Front end only, with fake data; designs by Daria (Figma file "Mississauga Calendar Design").
 
+## v0.5.0 (30 October 2026)
+
+Changes from the calendar touch point with Carol and Katie (29 Oct), from Daria's update of the same day (Figma 154:53, 176:2079, 204:2412).
+
+- "Upcoming collection" is a heading above the card, like "Future collections".
+- Selected address: the label sits above a field that looks like the search field, with the X to clear it, at every width.
+- Addresses show as "street, Mississauga", with no postal code, in the suggestions too.
+- Addresses with no City collection still appear in the search. Selecting one shows "No upcoming collections for the selected address", the reason and a "Find out more" link; the reminder and calendar buttons are hidden. Test addresses: 3115 Argentia Road (business), 4090 Confederation Parkway (condo), 6900 Airport Road (new development). The reason wording is a placeholder until the City supplies its own.
+- Get calendar: a choice of Google Calendar, iCal or Microsoft Outlook, and Print calendar. In the prototype each application option downloads the same calendar file. Print gives the next twelve months as a list by month.
+- The new states follow Daria's phone design at every width until the wider designs are drawn.
+
 ## v0.4.2 (29 October 2026)
 
 - Demo page: in the 75% layout the side menu is on the right, as on the City's site (Carol, 29 Oct). The calendar comes first in the page.

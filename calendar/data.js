@@ -1,8 +1,9 @@
-// Test addresses: real Mississauga street names with made-up house numbers and postal codes (City Hall's
-// is real). Collection rules are invented. No WIS or City data.
+// Test addresses: real Mississauga street names with made-up house numbers. Shown as "<street>, Mississauga",
+// with no postal code (Carol and Katie, 29 Oct). Collection rules are invented. No WIS or City data.
 // Each address has a weekday (0 = Sunday) and which week of the two-week cycle recycling falls on.
-// Garbage and recycling alternate weekly; organics are collected every week. One address has no service.
-// Descriptions and links are placeholders, not City content.
+// Garbage and recycling alternate weekly; organics are collected every week.
+// Addresses with no City collection still appear in the search, with a reason (noService) that picks the message.
+// Descriptions, reason wording and links are placeholders, not City content.
 window.CALENDAR_DATA = {
   wasteTypes: {
     garbage: {
@@ -21,13 +22,30 @@ window.CALENDAR_DATA = {
       link: '#organics'
     }
   },
+  // Why an address has no City collection (Figma 154:53, frame 208:3129). Placeholder wording until the City supplies its own.
+  noServiceReasons: {
+    business: {
+      text: 'This is a business address. Businesses arrange their own waste collection with a private contractor.',
+      link: '#business-waste'
+    },
+    condo: {
+      text: 'This building is collected by a private contractor arranged by the building management, not by the City.',
+      link: '#multi-residential'
+    },
+    development: {
+      text: 'This is a new development that the City does not collect from yet.',
+      link: '#new-developments'
+    }
+  },
   monthsAhead: 12,
   addresses: [
-    { id: 'a0', label: '300 City Centre Drive, Mississauga', weekday: 5, recyclingWeek: 1, postal: 'L5B 3C9' },
-    { id: 'a1', label: '245 Queen Street South, Mississauga', weekday: 5, recyclingWeek: 0, postal: 'L5M 0A1' },
-    { id: 'a2', label: '85 Lakeshore Road East, Mississauga', weekday: 3, recyclingWeek: 1, postal: 'L5G 0A2' },
-    { id: 'a3', label: '95 Lakeshore Road East, Mississauga', weekday: 3, recyclingWeek: 1, postal: 'L5G 0A3' },
-    { id: 'a4', label: '3420 Mississauga Road, Mississauga', weekday: 1, recyclingWeek: 0, postal: 'L5L 0A4' },
-    { id: 'a5', label: '6900 Airport Road, Mississauga', weekday: null, recyclingWeek: 0, postal: 'L4T 0A5' }
+    { id: 'a0', label: '300 City Centre Drive, Mississauga', weekday: 5, recyclingWeek: 1 },
+    { id: 'a1', label: '245 Queen Street South, Mississauga', weekday: 5, recyclingWeek: 0 },
+    { id: 'a2', label: '85 Lakeshore Road East, Mississauga', weekday: 3, recyclingWeek: 1 },
+    { id: 'a3', label: '95 Lakeshore Road East, Mississauga', weekday: 3, recyclingWeek: 1 },
+    { id: 'a4', label: '3420 Mississauga Road, Mississauga', weekday: 1, recyclingWeek: 0 },
+    { id: 'a5', label: '6900 Airport Road, Mississauga', weekday: null, recyclingWeek: 0, noService: 'development' },
+    { id: 'a6', label: '3115 Argentia Road, Mississauga', weekday: null, recyclingWeek: 0, noService: 'business' },
+    { id: 'a7', label: '4090 Confederation Parkway, Mississauga', weekday: null, recyclingWeek: 0, noService: 'condo' }
   ]
 };

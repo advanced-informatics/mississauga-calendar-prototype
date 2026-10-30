@@ -1,5 +1,5 @@
 // Calendar prototype: search, upcoming collection, month switching, expandable cards, empty states,
-// reminder sign-up with validation (nothing is sent) and an .ics download.
+// reminder sign-up with validation (nothing is sent), and a calendar download or print.
 // Plain script (no modules) so it runs from disk.
 (function () {
   var data = window.CALENDAR_DATA;
@@ -106,7 +106,6 @@
     toggle.setAttribute('aria-expanded', 'false');
     toggle.setAttribute('aria-controls', id);
     var body = make('div');
-    if (isNext) body.appendChild(make('div', 'card__eyebrow', 'Upcoming collection'));
     body.appendChild(make('div', 'card__date', dateFmt.format(item.date)));
     var summary = typesList(item.types);
     body.appendChild(summary);
@@ -127,6 +126,30 @@
     return wrap;
   }
   function message(text) { return make('p', 'message', text); }
+  // "Upcoming collection" is a heading above the card, like "Future collections" (Carol, 29 Oct; Figma 154:53).
+  function upcomingSection(item) {
+    var frag = document.createDocumentFragment();
+    frag.appendChild(make('h2', 'section-title section-title--first', 'Upcoming collection'));
+    frag.appendChild(card(item, true));
+    return frag;
+  }
+  // An address the City doesn't collect from: say so, and why (Figma 154:53, frame 208:3129).
+  function noService(address) {
+    var box = make('div', 'no-service');
+    var status = make('p', 'status');
+    status.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></svg>';
+    status.appendChild(make('span', '', 'No upcoming collections for the selected address'));
+    box.appendChild(status);
+    var reason = address.noService && data.noServiceReasons[address.noService];
+    if (reason) {
+      box.appendChild(make('p', 'no-service__text', reason.text));
+      var a = make('a', 'more-link', 'Find out more');
+      a.href = reason.link;
+      a.insertAdjacentHTML('beforeend', '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>');
+      box.appendChild(a);
+    }
+    return box;
+  }
 
   // --- Schedule view ---
   function showAddress(address) {
@@ -141,7 +164,8 @@
     el('selected-address').textContent = address.label;
     var up = el('upcoming');
     up.innerHTML = '';
-    up.appendChild(state.upcoming ? card(state.upcoming, true) : message('No upcoming collections for the selected address.'));
+    up.appendChild(state.upcoming ? upcomingSection(state.upcoming) : noService(address));
+    document.querySelector('.actions').hidden = !state.upcoming;
     el('future-head').hidden = !state.upcoming;
     el('month-nav').hidden = !state.upcoming;
     el('month-collections').hidden = !state.upcoming;
@@ -328,7 +352,7 @@
     notFound.hidden = true;
     found.forEach(function (a) {
       var li = make('li');
-      var b = make('button', '', a.label + (a.postal ? ' ON ' + a.postal : ''));
+      var b = make('button', '', a.label);
       b.type = 'button';
       b.setAttribute('role', 'option');
       b.addEventListener('click', function () { showAddress(a); });
@@ -492,8 +516,23 @@
   el('open-calendar').addEventListener('click', function () {
     if (icsUrl) URL.revokeObjectURL(icsUrl);
     icsUrl = URL.createObjectURL(new Blob([buildIcs()], { type: 'text/calendar' }));
-    el('ics-link').href = icsUrl;
+    Array.prototype.forEach.call(document.querySelectorAll('.ics-link'), function (a) { a.href = icsUrl; });
     show('calendar', el('calendar-back'));
   });
   el('calendar-back').addEventListener('click', function () { show('result', el('open-calendar')); });
+
+  // --- Print: the next twelve months as a list, one heading per month ---
+  el('print-calendar').addEventListener('click', function () {
+    var sheet = el('print-sheet');
+    sheet.innerHTML = '';
+    sheet.appendChild(make('h1', '', 'Collection schedule'));
+    sheet.appendChild(make('p', '', state.address.label));
+    var current = '', ul = null;
+    collectionsFor(state.address, dayStart(new Date()), lastDay()).forEach(function (c) {
+      var m = monthFmt.format(c.date);
+      if (m !== current) { current = m; sheet.appendChild(make('h2', '', m)); ul = make('ul'); sheet.appendChild(ul); }
+      ul.appendChild(make('li', '', dateFmt.format(c.date) + ': ' + c.types.map(function (k) { return data.wasteTypes[k].label; }).join(', ')));
+    });
+    window.print();
+  });
 })();
