@@ -2,6 +2,14 @@
 
 Versions of the collection calendar prototype. Front end only, with fake data; designs by Daria (Figma file "Mississauga Calendar Design").
 
+## v0.5.1 (10 November 2026)
+
+Wording from Daria's phone layout (Figma 154:53, changed 30 Oct).
+
+- The waste type is "Garbage", not "General waste".
+- Search: the label is "Type in your home address:" and the placeholder "e.g. 300 City Centre Drive".
+- Waste descriptions: Daria's wording for garbage (curb by 7 a.m., bags no more than 20 kg), recycling and organics. Still placeholders until the City supplies its own.
+
 ## v0.5.0 (30 October 2026)
 
 Changes from the calendar touch point with Carol and Katie (29 Oct), from Daria's update of the same day (Figma 154:53, 176:2079, 204:2412).

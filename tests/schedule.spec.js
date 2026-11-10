@@ -9,7 +9,7 @@ test('"Upcoming collection" is a heading above the next collection', async ({ pa
   await expect(page.getByRole('heading', { name: 'Upcoming collection' })).toBeVisible();
   const next = page.locator('#upcoming .card');
   await expect(next).toContainText('Friday, October 30');
-  await expect(next).toContainText('General waste');
+  await expect(next).toContainText('Garbage');
   await expect(next).toContainText('Organics');
 });
 

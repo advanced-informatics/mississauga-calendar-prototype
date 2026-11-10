@@ -25,7 +25,7 @@ test('the calendar file holds the collections for the address', async ({ page })
   const ics = require('fs').readFileSync(await download.path(), 'utf8');
   expect(ics).toContain('BEGIN:VCALENDAR');
   expect(ics).toContain('DTSTART;VALUE=DATE:20261030');
-  expect(ics).toContain('SUMMARY:Collection: General waste, Organics');
+  expect(ics).toContain('SUMMARY:Collection: Garbage, Organics');
   expect(ics).toContain('LOCATION:300 City Centre Drive\\, Mississauga');
 });
 

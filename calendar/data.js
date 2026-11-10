@@ -7,18 +7,18 @@
 window.CALENDAR_DATA = {
   wasteTypes: {
     garbage: {
-      label: 'General waste', colour: '#8a6d3b',
-      description: 'Place bags or a garbage cart at the curb by 7 a.m. on collection day. Bags must not weigh more than 23 kg.',
+      label: 'Garbage', colour: '#8a6d3b',
+      description: 'Place garbage bin or bags at the curb by 7 a.m. on collection day. Bags must not weigh more than 20 kg (44 lbs).',
       link: '#garbage'
     },
     recycling: {
       label: 'Recycling', colour: '#1f6fb2',
-      description: 'Rinse containers and put them loose in the blue cart. No plastic bags or soft plastics.',
+      description: 'Place clean, dry containers, paper, flattened and bundled cardboard, foam packaging and other accepted materials in your blue bin.',
       link: '#recycling'
     },
     organics: {
       label: 'Organics', colour: '#2e8540',
-      description: 'Food scraps and soiled paper go in the green bin. Use certified compostable bags or paper bags.',
+      description: 'Put food scraps, including meat and fish bones, coffee grounds and other compostable matter in your green bin.',
       link: '#organics'
     }
   },
