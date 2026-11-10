@@ -1,5 +1,5 @@
 // Test addresses: real Mississauga street names with made-up house numbers. Shown as "<street>, Mississauga",
-// with no postal code (Carol and Katie, 29 Oct). Collection rules are invented. No WIS or City data.
+// with no postal code (City, 29 Oct). Collection rules are invented. No WIS or City data.
 // Each address has a weekday (0 = Sunday) and which week of the two-week cycle recycling falls on.
 // Garbage and recycling alternate weekly; organics are collected every week.
 // Addresses with no City collection still appear in the search, with a reason (noService) that picks the message.

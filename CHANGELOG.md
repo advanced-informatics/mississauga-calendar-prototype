@@ -1,29 +1,29 @@
 # Changelog
 
-Versions of the collection calendar prototype. Front end only, with fake data; designs by Daria (Figma file "Mississauga Calendar Design").
+Versions of the collection calendar prototype. Front end only, with fake data; designs by WIS's designer (Figma file "Mississauga Calendar Design").
 
 ## v0.5.1 (10 November 2026)
 
-Wording from Daria's phone layout (Figma 154:53, changed 30 Oct).
+Wording from the phone layout (Figma 154:53, changed 30 Oct).
 
 - The waste type is "Garbage", not "General waste".
 - Search: the label is "Type in your home address:" and the placeholder "e.g. 300 City Centre Drive".
-- Waste descriptions: Daria's wording for garbage (curb by 7 a.m., bags no more than 20 kg), recycling and organics. Still placeholders until the City supplies its own.
+- Waste descriptions: the designer's wording for garbage (curb by 7 a.m., bags no more than 20 kg), recycling and organics. Still placeholders until the City supplies its own.
 
 ## v0.5.0 (30 October 2026)
 
-Changes from the calendar touch point with Carol and Katie (29 Oct), from Daria's update of the same day (Figma 154:53, 176:2079, 204:2412).
+Changes from the calendar touch point with the City (29 Oct), from the design update of the same day (Figma 154:53, 176:2079, 204:2412).
 
 - "Upcoming collection" is a heading above the card, like "Future collections".
 - Selected address: the label sits above a field that looks like the search field, with the X to clear it, at every width.
 - Addresses show as "street, Mississauga", with no postal code, in the suggestions too.
 - Addresses with no City collection still appear in the search. Selecting one shows "No upcoming collections for the selected address", the reason and a "Find out more" link; the reminder and calendar buttons are hidden. Test addresses: 3115 Argentia Road (business), 4090 Confederation Parkway (condo), 6900 Airport Road (new development). The reason wording is a placeholder until the City supplies its own.
 - Get calendar: a choice of Google Calendar, iCal or Microsoft Outlook, and Print calendar. In the prototype each application option downloads the same calendar file. Print gives the next twelve months as a list by month.
-- The new states follow Daria's phone design at every width until the wider designs are drawn.
+- The new states follow the phone design at every width until the wider designs are drawn.
 
 ## v0.4.2 (29 October 2026)
 
-- Demo page: in the 75% layout the side menu is on the right, as on the City's site (Carol, 29 Oct). The calendar comes first in the page.
+- Demo page: in the 75% layout the side menu is on the right, as on the City's site (City, 29 Oct). The calendar comes first in the page.
 
 ## v0.4.1 (29 October 2026)
 
@@ -31,7 +31,7 @@ Changes from the calendar touch point with Carol and Katie (29 Oct), from Daria'
 
 ## v0.4.0 (29 October 2026)
 
-Daria's desktop layout (Figma 204:2412, 27 to 28 Oct).
+The desktop layout (Figma 204:2412, 27 to 28 Oct).
 
 - Future collections has a list and calendar toggle beside its heading.
 - Calendar view: a month grid, Monday first, with each collection day's waste types; days from the next and previous month are greyed. On phones the days show coloured dots only.
@@ -43,7 +43,7 @@ Daria's desktop layout (Figma 204:2412, 27 to 28 Oct).
 
 ## v0.3.0 (27 October 2026)
 
-Daria's mobile layout update (Figma 154:53, 26 Oct) and her new tablet and desktop layouts (Figma 176:2079).
+The mobile layout update (Figma 154:53, 26 Oct) and the new tablet and desktop layouts (Figma 176:2079).
 
 - Tablet and desktop: "Selected address" and the address on one line, the X right beside them.
 - Desktop (frame 993px and wider): the reminder and calendar buttons show their labels, "Get reminder" and "Get calendar".
@@ -55,7 +55,7 @@ Daria's mobile layout update (Figma 154:53, 26 Oct) and her new tablet and deskt
 
 ## v0.2.0 (26 October 2026)
 
-Carol's feedback of 23 October, from Daria's post-feedback design (Figma 154:53).
+The City's feedback of 23 October, from the post-feedback design (Figma 154:53).
 
 - An X clears the selected address and returns to the search, in place of the pencil.
 - Reminder and calendar are icon buttons with accessible labels, under the address and right-aligned.
@@ -67,7 +67,7 @@ Carol's feedback of 23 October, from Daria's post-feedback design (Figma 154:53)
 
 ## v0.1.0 (22 October 2026)
 
-First prototype, from Daria's Version 2.0 (Figma 135:4837).
+First prototype, from Version 2.0 of the design (Figma 135:4837).
 
 - Address search with suggestions and a not-found message.
 - Upcoming collection first, then the month's collections, one expand control per collection.

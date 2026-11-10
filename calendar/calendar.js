@@ -97,7 +97,7 @@
     });
     return div;
   }
-  // One expand control per card, as agreed with Carol on 22 October.
+  // One expand control per card, as agreed with the City on 22 October.
   function card(item, isNext) {
     var wrap = make('div', 'card' + (isNext ? ' card--next' : ''));
     var id = 'card-details-' + (++uid);
@@ -126,7 +126,7 @@
     return wrap;
   }
   function message(text) { return make('p', 'message', text); }
-  // "Upcoming collection" is a heading above the card, like "Future collections" (Carol, 29 Oct; Figma 154:53).
+  // "Upcoming collection" is a heading above the card, like "Future collections" (City, 29 Oct; Figma 154:53).
   function upcomingSection(item) {
     var frag = document.createDocumentFragment();
     frag.appendChild(make('h2', 'section-title section-title--first', 'Upcoming collection'));

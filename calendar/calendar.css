@@ -1,4 +1,4 @@
-/* Calendar inside the iframe. Follows Daria's designs: mobile layout (Figma 154:53, 26 Oct) and tablet and desktop layouts (Figma 176:2079). */
+/* Calendar inside the iframe. Follows the Figma designs: mobile layout (Figma 154:53, 26 Oct) and tablet and desktop layouts (Figma 176:2079). */
 :root {
   --ink: #1d1d1d;
   --muted: #5a5a5a;
@@ -9,7 +9,7 @@
   --action-ink: #ffffff;
   --focus: #1a7ac0;
   --error: #b00020;
-  /* City type scale and spacing unit (design brief, Carol's sheets of 23 Sep and 5 Oct).
+  /* City type scale and spacing unit (design brief, the City's sheets of 23 Sep and 5 Oct).
      Phone below 577px, tablet 577 to 992px, desktop from 993px, measured on the frame's width. */
   --u: 4px;
   --fs-p: 16px; --fs-small: 14.4px; --fs-xs: 12.8px; --fs-h4: 19.2px;
@@ -62,7 +62,7 @@ a { color: var(--action); }
 .btn--outline { background: #fff; color: var(--action); border: 1px solid var(--action); }
 .btn--block { width: 100%; margin: 16px 0 8px; }
 
-/* Selected address: label above a field like the search field, with an X to clear it (Carol, 29 Oct; Figma 154:53, 204:2412) */
+/* Selected address: label above a field like the search field, with an X to clear it (City, 29 Oct; Figma 154:53, 204:2412) */
 .selected { margin-bottom: calc(var(--u) * 4); }
 .selected__label { margin: 0 0 6px; font-size: var(--fs-p); font-weight: 500; }
 .selected__field {
@@ -98,7 +98,7 @@ a { color: var(--action); }
 .detail p { margin: 4px 0 2px 18px; font-size: var(--fs-small); color: var(--muted); }
 .detail a { margin-left: 18px; font-size: var(--fs-small); }
 
-/* Actions: icon buttons under the address, right-aligned (Carol, 23 Oct; Figma 154:53) */
+/* Actions: icon buttons under the address, right-aligned (City, 23 Oct; Figma 154:53) */
 .actions { display: flex; justify-content: flex-end; gap: calc(var(--u) * 2); margin: 0 0 calc(var(--u) * 3); }
 .icon-btn--outline-action { border: 1px solid var(--action); background: #fff; }
 .action-btn__label { display: none; }
@@ -191,7 +191,7 @@ a { color: var(--action); }
 
 /* Get calendar: one button per application, a divider, then print (Figma 154:53, frame 208:3372) */
 .app-list .btn--block { margin: 0 0 calc(var(--u) * 4); }
-/* Wider frames: Daria drew this view for phones only, so it keeps a phone-width column. */
+/* Wider frames: This view was drawn for phones only, so it keeps a phone-width column. */
 @media (min-width: 577px) { .app-list { max-width: 375px; } }
 .divider { border: 0; border-top: 1px solid #c2c2c2; margin: 0 0 calc(var(--u) * 4); }
 .print-sheet { display: none; }
