@@ -1,8 +1,10 @@
-# Runs the journey tests on every push and pull request. Pages publishes from main on its own,
-# so a failure here flags a broken release rather than stopping it.
+# Runs the journey tests on every branch push and pull request (not tags, which repeat a commit
+# already tested). Pages publishes from main on its own, so a failure here flags a broken release
+# rather than stopping it.
 name: Journey tests
 on:
   push:
+    branches: ['**']
   pull_request:
 jobs:
   test:
